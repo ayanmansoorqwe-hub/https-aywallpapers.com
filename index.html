@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AY Wallpapers</title>
+
+<!-- ★ Favicon Added Here -->
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+<meta property="og:image" content="favicon.png">
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg1:#0b0f1a; --bg2:#061023; --neon:#00f0ff; --accent:#ff3d81; --light:#e6f7ff;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Orbitron',sans-serif;background:linear-gradient(135deg,var(--bg1),var(--bg2));color:var(--light);overflow-x:hidden;scroll-behavior:smooth;}
+
+  /* Login Overlay */
+  #login-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.95);display:flex;justify-content:center;align-items:center;z-index:10000;}
+  #login-box{background:rgba(0,0,0,0.85);padding:50px;border-radius:20px;text-align:center;width:350px;box-shadow:0 0 40px var(--neon);animation:fadeIn 1s ease-in-out;}
+  #login-box h2{margin-bottom:20px;color:var(--neon);text-shadow:0 0 15px var(--neon),0 0 30px var(--accent);}
+  #login-box input{width:100%;padding:14px;margin:12px 0;border-radius:10px;border:2px solid var(--neon); background:rgba(0,0,0,0.4); color:var(--light); transition:.3s;}
+  #login-box input:focus{border-color:var(--accent);outline:none;}
+  #login-box button{padding:14px 30px;margin-top:12px;border:none;border-radius:10px;background:var(--neon); color:#000;font-weight:bold; cursor:pointer; transition:.3s;}
+  #login-box button:hover{background:var(--accent);color:#fff;box-shadow:0 0 30px var(--accent);}  @keyframes fadeIn {from{opacity:0;}to{opacity:1;}}
+  #main-content{display:none;}
+
+  /* Banner */
+  .banner{width:100%;position:fixed;top:0;left:0;background:linear-gradient(90deg,var(--accent),var(--neon));text-align:center;padding:15px 0;font-size:1.1rem;font-weight:bold;letter-spacing:1px;color:#000;cursor:pointer;animation:banner-glow 2s infinite alternate;z-index:1001;border-bottom:2px solid var(--neon);}
+  @keyframes banner-glow {from{text-shadow:0 0 5px var(--accent);}to{text-shadow:0 0 15px var(--neon),0 0 30px var(--accent);}}
+
+  /* Navigation */
+  nav{position:fixed;top:65px;left:0;width:100%;background:rgba(0,0,0,0.8);backdrop-filter:blur(8px);display:flex;justify-content:space-between;align-items:center;padding:20px 50px;z-index:1000;border-bottom:1px solid rgba(0,240,255,0.3);}
+  nav .logo{font-size:2rem;color:var(--neon);text-shadow:0 0 15px var(--neon),0 0 30px var(--accent);}
+  nav ul{list-style:none;display:flex;gap:30px;}
+  nav ul li a{text-decoration:none;color:var(--light);font-size:1rem;transition:.3s;}
+  nav ul li a:hover{color:var(--accent);}
+
+  /* Hero */
+  .hero{height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;margin-top:130px;position:relative;z-index:1;}
+  .hero::before{content:"";position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,rgba(0,0,0,0.5),rgba(0,0,0,0.6));z-index:-1;}
+  .hero h1{font-size:4rem;color:var(--neon);text-shadow:0 0 25px var(--neon),0 0 60px var(--accent);margin-bottom:25px;animation:glow 2s infinite alternate;}
+  .hero p{max-width:700px;font-size:1.3rem;margin-bottom:35px;color:#bfeeff;}
+  .hero .btn{padding:16px 35px;border:3px solid var(--neon);border-radius:40px;background:transparent;color:var(--neon);cursor:pointer;font-size:1.2rem;transition:.3s;}
+  .hero .btn:hover{background:var(--neon);color:var(--bg1);box-shadow:0 0 35px var(--neon);}
+  @keyframes glow{from{text-shadow:0 0 15px var(--neon);}to{text-shadow:0 0 35px var(--neon),0 0 80px var(--accent);}}
+
+  /* Features */
+  .features{padding:100px 20px;text-align:center;}
+  .features h2{font-size:2.5rem;margin-bottom:50px;color:var(--accent);}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:35px;max-width:1200px;margin:0 auto;}
+  .card{background:rgba(255,255,255,0.03);border:1px solid rgba(0,240,255,0.2);padding:30px;border-radius:20px;transition:.3s;box-shadow:0 0 25px rgba(0,240,255,0.1);cursor:pointer;}
+  .card:hover{transform:translateY(-8px) scale(1.05);box-shadow:0 0 50px rgba(0,240,255,0.4);}
+  .card h3{color:var(--neon);margin-bottom:15px;font-size:1.5rem;}
+  .card p{font-size:1rem;color:#bfeeff;}
+
+  /* Gallery */
+  .gallery{padding:100px 20px;background:rgba(255,255,255,0.02);text-align:center;}
+  .gallery h2{font-size:2.5rem;margin-bottom:50px;color:var(--accent);}
+  .gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:25px;max-width:1300px;margin:0 auto;}
+  .gallery img{width:100%;border-radius:15px;transition:.4s;object-fit:cover;height:220px;cursor:pointer;box-shadow:0 0 20px rgba(0,240,255,0.1);}
+  .gallery img:hover{transform:scale(1.08);box-shadow:0 0 35px var(--neon);}
+
+  /* Modal */
+  .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.95);align-items:center;justify-content:center;z-index:10000;}
+  .modal-content{position:relative;max-width:90%;max-height:90%;}
+  .modal-content img{width:100%;height:auto;border-radius:15px;display:block;}
+  .close{position:absolute;top:-20px;right:-20px;font-size:2.5rem;color:var(--neon);cursor:pointer;transition:.3s;}
+  .close:hover{color:var(--accent);}
+  #download-btn{position:absolute;top:15px;right:15px;background:var(--neon);color:#000;padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:bold;box-shadow:0 0 15px var(--neon);z-index:10001;cursor:pointer;}
+
+  /* Contact */
+  .contact{padding:100px 20px;text-align:center;background:rgba(0,0,0,0.1);}
+  .contact h2{font-size:2.5rem;margin-bottom:40px;color:var(--accent);}
+  .contact form{max-width:650px;margin:0 auto;display:flex;flex-direction:column;gap:20px;}
+  .contact input,.contact textarea{padding:14px;border:2px solid var(--neon);border-radius:10px;background:rgba(0,0,0,0.4);color:var(--light);font-size:1.05rem;}
+  .contact textarea{min-height:140px;resize:vertical;}
+  .contact button{padding:16px;background:var(--neon);border:none;border-radius:10px;color:#000;font-size:1.1rem;cursor:pointer;transition:.3s;}
+  .contact button:hover{background:var(--accent);color:#fff;box-shadow:0 0 20px var(--accent);}
+
+  /* Newsletter */
+  #newsletter{padding:80px 20px;text-align:center;background:rgba(0,0,0,0.08);}
+  #newsletter h2{font-size:2.5rem;margin-bottom:20px;color:var(--accent);}
+  #newsletter input{padding:16px;border:2px solid var(--neon);border-radius:10px;width:300px;background:rgba(0,0,0,0.4);color:#fff;margin-right:12px;font-size:1.05rem;}
+  #newsletter button{padding:16px 32px;border:none;border-radius:10px;background:var(--neon);color:#000;cursor:pointer;transition:.3s;font-size:1.1rem;}
+  #newsletter button:hover{background:var(--accent);color:#fff;box-shadow:0 0 20px var(--accent);}
+  #newsletter-msg{margin-top:20px;font-size:1.05rem;color:var(--neon);text-shadow:0 0 8px var(--neon),0 0 15px var(--accent);animation:neon-glow 1.5s infinite alternate;}
+  @keyframes neon-glow{from{text-shadow:0 0 8px var(--neon),0 0 15px var(--accent);}to{text-shadow:0 0 20px var(--neon),0 0 35px var(--accent);}}
+
+  /* Footer */
+  footer{padding:40px;text-align:center;background:rgba(0,0,0,0.75);border-top:1px solid rgba(0,240,255,0.3);color:#bfeeff;font-size:1rem;}
+</style>
+</head>
+<body>
+
+<!-- Login Overlay -->
+<div id="login-overlay">
+  <div id="login-box">
+    <h2>Sign In to AY Wallpapers</h2>
+    <input type="text" id="username" placeholder="Username" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button onclick="login()">Login</button>
+    <p style="margin-top:15px;color:#bfeeff;font-size:0.95rem;">Demo login: any username/password works</p>
+  </div>
+</div>
+
+<div id="main-content">
+
+  <!-- Banner -->
+  <div class="banner" onclick="alert('🎉 Welcome! Explore viby & satisfying wallpapers!')">
+    🌟 Viby & Satisfying Wallpapers! 🌟
+  </div>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="logo">AY Wallpapers</div>
+    <ul>
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#features">Categories</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#newsletter">Subscribe</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <h1>Discover Viby & Satisfying Wallpapers</h1>
+    <p>Neon vibes, smooth design, and chill aesthetics for your devices.</p>
+    <button class="btn" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">Explore Now</button>
+  </section>
+
+  <!-- Features -->
+  <section class="features" id="features">
+    <h2>⚡ Categories</h2>
+    <div class="cards">
+      <div class="card" onclick="filterGallery('fast')">
+        <h3>🚀 Super Fast</h3>
+        <p>Optimized and blazing fast wallpapers.</p>
+      </div>
+      <div class="card" onclick="filterGallery('design')">
+        <h3>🎨 Futuristic Design</h3>
+        <p>Neon and cyber themed wallpapers.</p>
+      </div>
+      <div class="card" onclick="filterGallery('responsive')">
+        <h3>📱 Fully Responsive</h3>
+        <p>Looks amazing on all devices.</p>
+      </div>
+      <div class="card" onclick="filterGallery('viby')">
+        <h3>✨ Viby & Satisfying</h3>
+        <p>Chill vibes with soothing aesthetic wallpapers.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="gallery" id="gallery">
+    <h2>🌌 Gallery Showcase</h2>
+    <div class="gallery-grid" id="gallery-grid"></div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact">
+    <h2>📩 Contact Us</h2>
+    <form>
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <!-- Newsletter -->
+  <section id="newsletter">
+    <h2>📰 Subscribe</h2>
+    <p>Get latest wallpapers delivered to your inbox!</p>
+    <form id="newsletter-form">
+      <input type="email" placeholder="Enter your email" required>
+      <button type="submit">Subscribe</button>
+    </form>
+    <p id="newsletter-msg"></p>
+  </section>
+
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <span class="close" id="close">&times;</span>
+      <img id="modal-img" src="" alt="Big Image">
+      <a id="download-btn" href="#" download>Download</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 AY Wallpapers 🌐 | Crafted with 💙 Neon Power</p>
+  </footer>
+
+</div>
+
+<script>
+  // Login
+  function login(){
+    let username = document.getElementById('username').value;
+    let password = document.getElementById('password').value;
+    if(username && password){
+      document.getElementById('login-overlay').style.display='none';
+      document.getElementById('main-content').style.display='block';
+    } else alert('Please enter username and password!');
+  }
+
+  // Gallery
+  const galleryGrid = document.getElementById('gallery-grid');
+  const modal = document.getElementById('modal');
+  const modalImg = document.getElementById('modal-img');
+  const closeBtn = document.getElementById('close');
+  const downloadBtn = document.getElementById('download-btn');
+
+  const galleryItems = [];
+  for(let i=1;i<=50;i++) galleryItems.push({id:i,category:'fast'});
+  for(let i=51;i<=100;i++) galleryItems.push({id:i,category:'design'});
+  for(let i=101;i<=150;i++) galleryItems.push({id:i,category:'responsive'});
+  for(let i=151;i<=200;i++) galleryItems.push({id:i,category:'viby'});
+
+  function displayGallery(items){
+    galleryGrid.innerHTML='';
+    items.forEach(item=>{
+      const img = document.createElement('img');
+      img.src = `https://picsum.photos/id/${item.id}/600/400`;
+      img.alt = `Wallpaper ${item.id}`;
+      img.dataset.big = img.src;
+      galleryGrid.appendChild(img);
+      img.addEventListener('click', ()=>{
+        modal.style.display='flex';
+        modalImg.src = img.dataset.big;
+        downloadBtn.href = img.dataset.big;
+        downloadBtn.download = `wallpaper-${item.id}.jpg`;
+      });
+    });
+  }
+  displayGallery(galleryItems);
+
+  function filterGallery(category){
+    const filtered = galleryItems.filter(item => item.category===category);
+    displayGallery(filtered);
+  }
+
+  closeBtn.onclick=()=>modal.style.display='none';
+  window.onclick=e=>{if(e.target==modal)modal.style.display='none';};
+
+  // Newsletter
+  const newsletterForm = document.getElementById('newsletter-form');
+  const newsletterMsg = document.getElementById('newsletter-msg');
+  newsletterForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    const email = this.querySelector('input').value;
+    if(email){
+      newsletterMsg.textContent = `✅ Thank you! ${email} has been subscribed.`;
+      this.reset();
+    }
+  });
+</script>
+</body>
+</html>
